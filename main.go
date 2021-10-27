@@ -99,7 +99,7 @@ func main() {
 		ExposeHeaders: []string{"Content-Length"},
 	}))
 	router.GET("/weather", weather.GetWeather)
-	if err := router.Run("localhost:8080"); err != nil {
+	if err := router.Run(":8080"); err != nil {
 		log.Fatal(err)
 	}
 }
