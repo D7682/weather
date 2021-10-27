@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 	"io/ioutil"
@@ -91,6 +92,12 @@ func (w *Weather) Init() {
 func main() {
 	var weather Weather
 	router := gin.Default()
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{"PUT", "PATCH", "GET", "POST"},
+		AllowHeaders: []string{"Origin"},
+		ExposeHeaders: []string{"Content-Length"},
+	}))
 	router.GET("/weather", weather.GetWeather)
 	if err := router.Run("localhost:8080"); err != nil {
 		log.Fatal(err)
