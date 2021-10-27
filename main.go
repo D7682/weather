@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 )
 
 type Weather struct {
@@ -99,7 +100,7 @@ func main() {
 		ExposeHeaders: []string{"Content-Length"},
 	}))
 	router.GET("/weather", weather.GetWeather)
-	if err := router.Run(":8080"); err != nil {
+	if err := router.Run(":"+os.Getenv("PORT")); err != nil {
 		log.Fatal(err)
 	}
 }
